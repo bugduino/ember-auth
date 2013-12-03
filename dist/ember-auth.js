@@ -393,3 +393,96 @@ set$(Em, 'ApplicationRoute', get$(Em, 'Route').extend({
     }
   }
 }));
+set$(Em, 'AuthenticatedRoute', get$(Em, 'Route').extend({
+  authRedirectable: true,
+  beforeModel: function () {
+    if (!get$(this, 'auth').get('signedIn')) {
+      this.transitionTo('landing');
+      return false;
+    }
+  },
+  actions: {
+    signOut: function () {
+      var accessToken;
+      accessToken = localStorage.getItem('access_token');
+      get$(this, 'auth').destroySession(JSON.stringify({ access_token: accessToken }));
+      localStorage.removeItem('access_token');
+      return localStorage.removeItem('ember-auth-rememberable');
+    }
+  }
+}));
+set$(Em, 'UnauthenticatedRoute', get$(Em, 'Route').extend({
+  beforeModel: function () {
+    if (get$(this, 'auth').get('signedIn'))
+      return this.transitionTo('market');
+  }
+}));
+set$(Em, 'SignInController', get$(Em, 'Controller').extend({
+  username: null,
+  password: null,
+  error: null,
+  actions: {
+    signIn: function () {
+      var clientId, password, this$, this$1, username;
+      username = this.get('username');
+      password = this.get('password');
+      clientId = get$(TreggEditor, 'clientId');
+      get$(this, 'auth').signIn({
+        data: {
+          client_id: clientId,
+          username: username,
+          password: password,
+          grant_type: 'password'
+        }
+      });
+      get$(this, 'auth').addHandler('signInSuccess', (this$ = this, function () {
+        var accessToken;
+        accessToken = get$(this$, 'auth').get('authToken');
+        if (accessToken) {
+          get$(this$, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
+          return localStorage.setItem('access_token', accessToken);
+        }
+      }));
+      return get$(this, 'auth').addHandler('signInError', (this$1 = this, function () {
+        var response;
+        response = get$(this$1, 'auth').get('response');
+        return this$1.set('error', get$(response, 'error_description'));
+      }));
+    }
+  }
+}));
+set$(Em, 'SignUpController', get$(Em, 'Controller').extend({
+  username: null,
+  password: null,
+  confirmPassword: null,
+  error: null,
+  actions: {
+    signUp: function () {
+      var clientId, confirmPassword, data, password, signUpUrl, this$, this$1, username;
+      username = this.get('username');
+      password = this.get('password');
+      confirmPassword = this.get('confirmPassword');
+      clientId = get$(TreggEditor, 'clientId');
+      signUpUrl = get$(TreggEditor, 'baseApiUrl') + '/sign-up';
+      data = {
+        username: username,
+        password: password,
+        confirm_password: confirmPassword,
+        client_id: clientId
+      };
+      return Ember.$.post(signUpUrl, data, (this$ = this, function (response) {
+        var accessToken;
+        accessToken = get$(response, 'access_token');
+        if (accessToken) {
+          get$(this$, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
+          localStorage.setItem('access_token', accessToken);
+          return this$.transitionToRoute('sign_in');
+        }
+      })).fail((this$1 = this, function (jqxhr, textStatus, error) {
+        var errs;
+        errs = JSON.parse(get$(jqxhr, 'responseText'));
+        return this$1.set('error', get$(errs, 'error'));
+      }));
+    }
+  }
+}));
