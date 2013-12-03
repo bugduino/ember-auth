@@ -361,9 +361,26 @@ get$(Em, 'Auth').reopen({
   request: 'jquery',
   response: 'json',
   strategy: 'token',
-  session: 'cookie',
-  modules: [],
-  signInEndPoint: null,
-  signOutEndPoint: null,
-  baseUrl: null
+  session: 'localStorage',
+  modules: [
+    'emberData',
+    'remeberable',
+    'authRedirectable',
+    'actionRedirectable'
+  ],
+  signInEndPoint: '/oauth/authorize',
+  signOutEndPoint: '/sign-out',
+  baseUrl: null,
+  tokenKey: 'access_token',
+  tokenLocation: 'authHeader',
+  tokenHeaderKey: 'OAuth',
+  rememberable: {
+    tokenKey: 'access_token',
+    autoRecall: true
+  },
+  authRedirectable: { route: 'sign_in' },
+  actionRedirectable: {
+    signInRoute: 'market',
+    signOutRoute: 'sign_in'
+  }
 });

@@ -12,18 +12,35 @@ Em.Auth.reopen
   strategy: 'token'
 
   # [string] (opt) session adapter;
-  #   default: 'cookie'
-  session:  'cookie'
+  #   default: 'localStorage'
+  session:  'localStorage'
 
   # [array<string>] (opt) list of modules, loaded in order specified;
   #   default: []
-  modules: []
+  modules: ["emberData", "remeberable", "authRedirectable", "actionRedirectable"]
 
   # [string] end point for sign in requests
-  signInEndPoint: null
+  signInEndPoint: '/oauth/authorize'
 
   # [string] end point for sign out requests
-  signOutEndPoint: null
+  signOutEndPoint: '/sign-out'
 
   # [string|null] (opt) a different base url for all ember-auth requests
   baseUrl: null
+
+  tokenKey: "access_token"
+
+  tokenLocation: "authHeader"
+
+  tokenHeaderKey: "OAuth"
+
+  rememberable: 
+    tokenKey: "access_token"
+    autoRecall: true
+
+  authRedirectable:
+    route: "sign_in"
+
+  actionRedirectable:
+    signInRoute: "market"
+    signOutRoute: "sign_in"
