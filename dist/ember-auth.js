@@ -386,6 +386,7 @@ set$(get$(Em, 'Auth'), 'ApplicationRoute', get$(Em, 'Route').extend({
   },
   init: function () {
     var accessToken;
+    console.log('heiiiiiiiiiiiiiiiiiiiiii');
     accessToken = localStorage.getItem('access_token');
     if (accessToken) {
       console.log('fetched the accessToken');

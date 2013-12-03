@@ -49,6 +49,7 @@ Em.Auth.ApplicationRoute = Em.Route.extend
   renderTemplate: ->
     @render('application')
   init: ->
+    console.log('heiiiiiiiiiiiiiiiiiiiiii')
     accessToken = localStorage.getItem("access_token")
     if accessToken
       console.log "fetched the accessToken"
