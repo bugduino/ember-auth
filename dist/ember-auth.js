@@ -383,7 +383,7 @@ get$(Em, 'Auth').reopen({
     signOutRoute: 'sign_in'
   }
 });
-get$(Em, 'ApplicationRoute').create({
+get$(get$(Em, 'Auth'), 'ApplicationRoute').create({
   renderTemplate: function () {
     return this.render('application');
   },
