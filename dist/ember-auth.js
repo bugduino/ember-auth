@@ -380,7 +380,7 @@ get$(Em, 'Auth').reopen({
     signOutRoute: 'sign_in'
   }
 });
-set$(Em, 'ApplicationRoute', get$(Em, 'Route').extend({
+set$(get$(Em, 'Auth'), 'ApplicationRoute', get$(Em, 'Route').extend({
   renderTemplate: function () {
     return this.render('application');
   },
@@ -393,7 +393,7 @@ set$(Em, 'ApplicationRoute', get$(Em, 'Route').extend({
     }
   }
 }));
-set$(Em, 'AuthenticatedRoute', get$(Em, 'Route').extend({
+set$(get$(Em, 'Auth'), 'AuthenticatedRoute', get$(Em, 'Route').extend({
   authRedirectable: true,
   beforeModel: function () {
     if (!get$(this, 'auth').get('signedIn')) {
@@ -411,13 +411,13 @@ set$(Em, 'AuthenticatedRoute', get$(Em, 'Route').extend({
     }
   }
 }));
-set$(Em, 'UnauthenticatedRoute', get$(Em, 'Route').extend({
+set$(get$(Em, 'Auth'), 'UnauthenticatedRoute', get$(Em, 'Route').extend({
   beforeModel: function () {
     if (get$(this, 'auth').get('signedIn'))
       return this.transitionTo('market');
   }
 }));
-set$(Em, 'SignInController', get$(Em, 'Controller').extend({
+set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
   username: null,
   password: null,
   error: null,
@@ -451,7 +451,7 @@ set$(Em, 'SignInController', get$(Em, 'Controller').extend({
     }
   }
 }));
-set$(Em, 'SignUpController', get$(Em, 'Controller').extend({
+set$(get$(Em, 'Auth'), 'SignUpController', get$(Em, 'Controller').extend({
   username: null,
   password: null,
   confirmPassword: null,

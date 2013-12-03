@@ -45,7 +45,7 @@ Em.Auth.reopen
     signInRoute: "market"
     signOutRoute: "sign_in"
 
-Em.ApplicationRoute = Em.Route.extend
+Em.Auth.ApplicationRoute = Em.Route.extend
   renderTemplate: ->
     @render('application')
   init: ->
@@ -54,7 +54,7 @@ Em.ApplicationRoute = Em.Route.extend
       console.log "fetched the accessToken"
       @auth.createSession JSON.stringify(access_token: accessToken)
 
-Em.AuthenticatedRoute = Em.Route.extend
+Em.Auth.AuthenticatedRoute = Em.Route.extend
   authRedirectable: true
   beforeModel: ->
     if !@auth.get "signedIn"
@@ -68,12 +68,12 @@ Em.AuthenticatedRoute = Em.Route.extend
       localStorage.removeItem "access_token"
       localStorage.removeItem "ember-auth-rememberable"
 
-Em.UnauthenticatedRoute = Em.Route.extend
+Em.Auth.UnauthenticatedRoute = Em.Route.extend
   beforeModel: ->
     if @auth.get "signedIn"
       @transitionTo "market"
 
-Em.SignInController = Em.Controller.extend
+Em.Auth.SignInController = Em.Controller.extend
   # Used for form field binding
   username: null
   password: null
@@ -107,7 +107,7 @@ Em.SignInController = Em.Controller.extend
         response = @auth.get("response")
         @set "error", response.error_description
 
-Em.SignUpController = Em.Controller.extend
+Em.Auth.SignUpController = Em.Controller.extend
   # Used for form field binding
   username: null
   password: null
