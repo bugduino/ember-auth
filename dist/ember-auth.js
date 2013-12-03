@@ -362,7 +362,7 @@ get$(Em, 'Auth').reopen({
   request: 'jquery',
   response: 'json',
   strategy: 'token',
-  session: 'localStorage',
+  session: 'local-storage',
   modules: [],
   signInEndPoint: '/oauth/authorize',
   signOutEndPoint: '/sign-out',

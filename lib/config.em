@@ -13,7 +13,7 @@ Em.Auth.reopen
 
   # [string] (opt) session adapter;
   #   default: 'localStorage'
-  session:  'localStorage'
+  session:  'local-storage'
 
   # [array<string>] (opt) list of modules, loaded in order specified;
   #   default: []
