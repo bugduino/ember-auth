@@ -363,7 +363,6 @@ get$(Em, 'Auth').reopen({
   strategy: 'token',
   session: 'localStorage',
   modules: [
-    'emberData',
     'remeberable',
     'authRedirectable',
     'actionRedirectable'
@@ -382,5 +381,18 @@ get$(Em, 'Auth').reopen({
   actionRedirectable: {
     signInRoute: 'market',
     signOutRoute: 'sign_in'
+  }
+});
+get$(Em, 'ApplicationRoute').reopen({
+  renderTemplate: function () {
+    return this.render('application');
+  },
+  init: function () {
+    var accessToken;
+    accessToken = localStorage.getItem('access_token');
+    if (accessToken) {
+      console.log('fetched the accessToken');
+      return get$(this, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
+    }
   }
 });
