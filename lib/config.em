@@ -45,7 +45,7 @@ Em.Auth.reopen
     signInRoute: "market"
     signOutRoute: "sign_in"
 
-Em.ApplicationRoute.reopen
+Em.ApplicationRoute.create
   renderTemplate: ->
     @render('application')
   init: ->
