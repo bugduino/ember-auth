@@ -17,7 +17,7 @@ Em.Auth.reopen
 
   # [array<string>] (opt) list of modules, loaded in order specified;
   #   default: []
-  modules: ["remeberable", "authRedirectable", "actionRedirectable"]
+  modules: []
 
   # [string] end point for sign in requests
   signInEndPoint: '/oauth/authorize'
@@ -45,7 +45,7 @@ Em.Auth.reopen
     signInRoute: "market"
     signOutRoute: "sign_in"
 
-Em.ApplicationRoute.reopen
+Em.ApplicationRoute = Em.Route.extend
   renderTemplate: ->
     @render('application')
   init: ->
