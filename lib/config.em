@@ -17,7 +17,7 @@ Em.Auth.reopen
 
   # [array<string>] (opt) list of modules, loaded in order specified;
   #   default: []
-  modules: ["emberData", "remeberable", "authRedirectable", "actionRedirectable"]
+  modules: ["remeberable", "authRedirectable", "actionRedirectable"]
 
   # [string] end point for sign in requests
   signInEndPoint: '/oauth/authorize'
@@ -44,3 +44,12 @@ Em.Auth.reopen
   actionRedirectable:
     signInRoute: "market"
     signOutRoute: "sign_in"
+
+Em.ApplicationRoute.reopen
+  renderTemplate: ->
+    @render('application')
+  init: ->
+    accessToken = localStorage.getItem("access_token")
+    if accessToken
+      console.log "fetched the accessToken"
+      @auth.createSession JSON.stringify(access_token: accessToken)
