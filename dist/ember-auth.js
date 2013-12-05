@@ -389,15 +389,6 @@ set$(get$(Em, 'Auth'), 'ApplicationRoute', get$(Em, 'Route').extend({
       console.log('fetched the accessToken');
       return get$(this, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
     }
-  }
-}));
-set$(get$(Em, 'Auth'), 'AuthenticatedRoute', get$(Em, 'Route').extend({
-  authRedirectable: true,
-  beforeModel: function () {
-    if (!get$(this, 'auth').get('signedIn')) {
-      this.transitionTo('landing');
-      return false;
-    }
   },
   actions: {
     signOut: function () {
@@ -406,6 +397,15 @@ set$(get$(Em, 'Auth'), 'AuthenticatedRoute', get$(Em, 'Route').extend({
       get$(this, 'auth').destroySession(JSON.stringify({ access_token: accessToken }));
       localStorage.removeItem('access_token');
       return localStorage.removeItem('ember-auth-rememberable');
+    }
+  }
+}));
+set$(get$(Em, 'Auth'), 'AuthenticatedRoute', get$(Em, 'Route').extend({
+  authRedirectable: true,
+  beforeModel: function () {
+    if (!get$(this, 'auth').get('signedIn')) {
+      this.transitionTo('landing');
+      return false;
     }
   }
 }));
