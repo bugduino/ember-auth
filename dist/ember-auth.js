@@ -362,14 +362,14 @@ get$(Em, 'Auth').reopen({
   request: 'jquery',
   response: 'json',
   strategy: 'token',
+  tokenKey: 'access_token',
+  tokenLocation: 'authHeader',
+  tokenHeaderKey: 'OAuth',
   session: 'localStorage',
   modules: [],
   signInEndPoint: '/oauth/authorize',
   signOutEndPoint: '/sign-out',
   baseUrl: null,
-  tokenKey: 'access_token',
-  tokenLocation: 'authHeader',
-  tokenHeaderKey: 'OAuth',
   rememberable: {
     tokenKey: 'access_token',
     autoRecall: true
@@ -386,7 +386,6 @@ set$(get$(Em, 'Auth'), 'ApplicationRoute', get$(Em, 'Route').extend({
   },
   init: function () {
     var accessToken;
-    console.log('heiiiiiiiiiiiiiiiiiiiiii');
     accessToken = localStorage.getItem('access_token');
     if (accessToken) {
       console.log('fetched the accessToken');
@@ -436,9 +435,11 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
           grant_type: 'password'
         }
       });
+      debugger;
       get$(this, 'auth').addHandler('signInSuccess', (this$ = this, function () {
         var accessToken;
         accessToken = get$(this$, 'auth').get('authToken');
+        debugger;
         if (accessToken) {
           get$(this$, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
           return localStorage.setItem('access_token', accessToken);

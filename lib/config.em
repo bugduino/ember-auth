@@ -11,6 +11,11 @@ Em.Auth.reopen
   #   default: 'token'
   strategy: 'token'
 
+  tokenKey: "access_token"
+
+  tokenLocation: "authHeader"
+
+  tokenHeaderKey: "OAuth"
   # [string] (opt) session adapter;
   #   default: 'localStorage'
   session:  'localStorage'
@@ -28,11 +33,6 @@ Em.Auth.reopen
   # [string|null] (opt) a different base url for all ember-auth requests
   baseUrl: null
 
-  tokenKey: "access_token"
-
-  tokenLocation: "authHeader"
-
-  tokenHeaderKey: "OAuth"
 
   rememberable: 
     tokenKey: "access_token"
@@ -49,7 +49,6 @@ Em.Auth.ApplicationRoute = Em.Route.extend
   renderTemplate: ->
     @render('application')
   init: ->
-    console.log('heiiiiiiiiiiiiiiiiiiiiii')
     accessToken = localStorage.getItem("access_token")
     if accessToken
       console.log "fetched the accessToken"
@@ -93,10 +92,12 @@ Em.Auth.SignInController = Em.Controller.extend
           username: username
           password: password
           grant_type: "password"
+      debugger
       # subscribe to the `signInSuccess` event and
       # then create session manually
       @auth.addHandler "signInSuccess", =>
         accessToken = @auth.get("authToken")
+        debugger
         if accessToken
           # Manually create the session
           @auth.createSession JSON.stringify(access_token: accessToken)
@@ -113,7 +114,6 @@ Em.Auth.SignUpController = Em.Controller.extend
   username: null
   password: null
   confirmPassword: null
-  
   # Store server error
   error: null
   actions:
