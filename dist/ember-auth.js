@@ -359,17 +359,15 @@ void function () {
 var get$ = Ember.get;
 var set$ = Ember.set;
 get$(Em, 'Auth').reopen({
-  request: 'jquery',
   response: 'json',
+  request: 'jquery',
   strategy: 'token',
-  tokenKey: 'access_token',
+  session: 'localStorage',
   tokenLocation: 'authHeader',
   tokenHeaderKey: 'OAuth',
-  session: 'localStorage',
   modules: [],
   signInEndPoint: '/oauth/authorize',
   signOutEndPoint: '/sign-out',
-  baseUrl: null,
   rememberable: {
     tokenKey: 'access_token',
     autoRecall: true
@@ -435,11 +433,9 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
           grant_type: 'password'
         }
       });
-      debugger;
       get$(this, 'auth').addHandler('signInSuccess', (this$ = this, function () {
         var accessToken;
         accessToken = get$(this$, 'auth').get('authToken');
-        debugger;
         if (accessToken) {
           get$(this$, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
           return localStorage.setItem('access_token', accessToken);

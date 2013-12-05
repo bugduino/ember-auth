@@ -1,25 +1,18 @@
 Em.Auth.reopen
-  # [string] (opt) request adapter;
-  #   default: 'jquery'
-  request:  'jquery'
-
   # [string] (opt) response adapter;
   #   default: 'json'
   response: 'json'
+  # [string] (opt) request adapter;
+  #   default: 'jquery'\
+  request:  'jquery'
 
-  # [string] (opt) strategy adapter;
-  #   default: 'token'
   strategy: 'token'
 
-  tokenKey: "access_token"
-
-  tokenLocation: "authHeader"
-
-  tokenHeaderKey: "OAuth"
-  # [string] (opt) session adapter;
-  #   default: 'localStorage'
   session:  'localStorage'
-
+  
+  tokenLocation: "authHeader"
+  
+  tokenHeaderKey: "OAuth"
   # [array<string>] (opt) list of modules, loaded in order specified;
   #   default: []
   modules: []
@@ -31,9 +24,6 @@ Em.Auth.reopen
   signOutEndPoint: '/sign-out'
 
   # [string|null] (opt) a different base url for all ember-auth requests
-  baseUrl: null
-
-
   rememberable: 
     tokenKey: "access_token"
     autoRecall: true
@@ -92,12 +82,10 @@ Em.Auth.SignInController = Em.Controller.extend
           username: username
           password: password
           grant_type: "password"
-      debugger
       # subscribe to the `signInSuccess` event and
       # then create session manually
       @auth.addHandler "signInSuccess", =>
         accessToken = @auth.get("authToken")
-        debugger
         if accessToken
           # Manually create the session
           @auth.createSession JSON.stringify(access_token: accessToken)
