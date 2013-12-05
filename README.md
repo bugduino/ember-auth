@@ -37,13 +37,13 @@ These build of ember-auth automatically generate some routes and controller for 
 `Em.Auth.ApplicationRoute`, `Em.Auth.AuthenticatedRoute`, `Em.Auth.UnauthenticatedRoute
 `, `Em.Auth.SignInController`, `Em.Auth.SignUpController`
 
-In order to get all working you nedd to do the following step:
+In order to get all working you need to do the following step:
 
 in your `Gemfile` add the following gem
 <pre>
 <code>
   gem 'ember-auth-rails' 
-  gem 'ember-auth-source', path: '/home/willy/Scrivania/fungoStudios/ember-auth'
+  gem 'ember-auth-source', git: 'git://github.com/giulyquinto/ember-auth.git', branch: 'feature/custom_auth'
   gem 'ember-auth-request-jquery-rails' 
   gem 'ember-auth-request-jquery-source'
   gem 'ember-auth-response-json-rails' 
