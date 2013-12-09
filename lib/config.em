@@ -43,13 +43,13 @@ Em.Auth.ApplicationRoute = Em.Route.extend
     if accessToken
       console.log "fetched the accessToken"
       @auth.createSession JSON.stringify(access_token: accessToken)
-  actions: 
-    signOut: ->
-      #delete session
-      accessToken = localStorage.getItem("access_token")
-      @auth.destroySession JSON.stringify(access_token: accessToken)
-      localStorage.removeItem "access_token"
-      localStorage.removeItem "ember-auth-rememberable"
+  #actions: 
+  signOut: ->
+    #delete session
+    accessToken = localStorage.getItem("access_token")
+    @auth.destroySession JSON.stringify(access_token: accessToken)
+    localStorage.removeItem "access_token"
+    localStorage.removeItem "ember-auth-rememberable"
 
 Em.Auth.AuthenticatedRoute = Em.Route.extend
   authRedirectable: true

@@ -390,14 +390,12 @@ set$(get$(Em, 'Auth'), 'ApplicationRoute', get$(Em, 'Route').extend({
       return get$(this, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
     }
   },
-  actions: {
-    signOut: function () {
-      var accessToken;
-      accessToken = localStorage.getItem('access_token');
-      get$(this, 'auth').destroySession(JSON.stringify({ access_token: accessToken }));
-      localStorage.removeItem('access_token');
-      return localStorage.removeItem('ember-auth-rememberable');
-    }
+  signOut: function () {
+    var accessToken;
+    accessToken = localStorage.getItem('access_token');
+    get$(this, 'auth').destroySession(JSON.stringify({ access_token: accessToken }));
+    localStorage.removeItem('access_token');
+    return localStorage.removeItem('ember-auth-rememberable');
   }
 }));
 set$(get$(Em, 'Auth'), 'AuthenticatedRoute', get$(Em, 'Route').extend({
