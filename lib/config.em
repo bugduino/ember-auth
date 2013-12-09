@@ -85,6 +85,8 @@ Em.Auth.SignInController = Em.Controller.extend
       # subscribe to the `signInSuccess` event and
       # then create session manually
       @auth.addHandler "signInSuccess", =>
+        @set "username", ""
+        @set "password", ""
         accessToken = @auth.get("authToken")
         if accessToken
           # Manually create the session
