@@ -389,13 +389,6 @@ set$(get$(Em, 'Auth'), 'ApplicationRoute', get$(Em, 'Route').extend({
       console.log('fetched the accessToken');
       return get$(this, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
     }
-  },
-  signOut: function () {
-    var accessToken;
-    accessToken = localStorage.getItem('access_token');
-    get$(this, 'auth').destroySession(JSON.stringify({ access_token: accessToken }));
-    localStorage.removeItem('access_token');
-    return localStorage.removeItem('ember-auth-rememberable');
   }
 }));
 set$(get$(Em, 'Auth'), 'AuthenticatedRoute', get$(Em, 'Route').extend({
@@ -404,6 +397,15 @@ set$(get$(Em, 'Auth'), 'AuthenticatedRoute', get$(Em, 'Route').extend({
     if (!get$(this, 'auth').get('signedIn')) {
       this.transitionTo('landing');
       return false;
+    }
+  },
+  actions: {
+    signOut: function () {
+      var accessToken;
+      accessToken = localStorage.getItem('access_token');
+      get$(this, 'auth').destroySession(JSON.stringify({ access_token: accessToken }));
+      localStorage.removeItem('access_token');
+      return localStorage.removeItem('ember-auth-rememberable');
     }
   }
 }));
