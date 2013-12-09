@@ -88,6 +88,10 @@ in `application.coffee`
 
 if you need you can switch the `emberData` module with `emberModel` but remember that you also need to change the gem loaded according to ember-auth specification [ember-auth-docs](http://ember-auth.herokuapp.com/docs)
 
+It's important that you explicitly define ann applicationController in this way
+<pre><code>App.ApplicationController = Ember.Controller.extend()
+</code></pre>
+
 You need to create routes and controllers files in your application in order to extend the given ones.
 Create `application_route.coffee` file and extend the given route
 <pre><code>App.ApplicationRoute = Ember.Auth.ApplicationRoute.extend()</code></pre>
