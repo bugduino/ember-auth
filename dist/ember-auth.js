@@ -375,7 +375,7 @@ get$(Em, 'Auth').reopen({
   authRedirectable: { route: 'sign_in' },
   actionRedirectable: {
     signInRoute: 'market',
-    signOutRoute: 'sign_in'
+    signOutRoute: 'landing'
   }
 });
 set$(get$(Em, 'Auth'), 'ApplicationRoute', get$(Em, 'Route').extend({

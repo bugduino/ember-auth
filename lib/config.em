@@ -33,7 +33,7 @@ Em.Auth.reopen
 
   actionRedirectable:
     signInRoute: "market"
-    signOutRoute: "sign_in"
+    signOutRoute: "landing"
 
 Em.Auth.ApplicationRoute = Em.Route.extend
   renderTemplate: ->
