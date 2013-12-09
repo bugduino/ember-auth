@@ -43,13 +43,6 @@ Em.Auth.ApplicationRoute = Em.Route.extend
     if accessToken
       console.log "fetched the accessToken"
       @auth.createSession JSON.stringify(access_token: accessToken)
-
-Em.Auth.AuthenticatedRoute = Em.Route.extend
-  authRedirectable: true
-  beforeModel: ->
-    if !@auth.get "signedIn"
-      @transitionTo('landing')
-      false
   actions: 
     signOut: ->
       #delete session
@@ -57,6 +50,13 @@ Em.Auth.AuthenticatedRoute = Em.Route.extend
       @auth.destroySession JSON.stringify(access_token: accessToken)
       localStorage.removeItem "access_token"
       localStorage.removeItem "ember-auth-rememberable"
+
+Em.Auth.AuthenticatedRoute = Em.Route.extend
+  authRedirectable: true
+  beforeModel: ->
+    if !@auth.get "signedIn"
+      @transitionTo('landing')
+      false
       
 Em.Auth.UnauthenticatedRoute = Em.Route.extend
   beforeModel: ->
