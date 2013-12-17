@@ -448,20 +448,12 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
         response = get$(this$1, 'auth').get('response');
         return this$1.set('error', get$(response, 'error_description'));
       }));
-    }
-  }
-}));
-set$(get$(Em, 'Auth'), 'SignUpController', get$(Em, 'Controller').extend({
-  username: null,
-  password: null,
-  confirmPassword: null,
-  error: null,
-  actions: {
+    },
     signUp: function () {
       var clientId, confirmPassword, data, password, signUpUrl, this$, this$1, username;
-      username = this.get('username');
-      password = this.get('password');
-      confirmPassword = this.get('confirmPassword');
+      username = this.get('newUsername');
+      password = this.get('newPassword');
+      confirmPassword = this.get('newConfirmPassword');
       clientId = get$(TreggEditor, 'clientId');
       signUpUrl = get$(TreggEditor, 'baseApiUrl') + '/sign-up';
       data = {

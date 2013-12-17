@@ -99,18 +99,10 @@ Em.Auth.SignInController = Em.Controller.extend
         response = @auth.get("response")
         @set "error", response.error_description
 
-Em.Auth.SignUpController = Em.Controller.extend
-  # Used for form field binding
-  username: null
-  password: null
-  confirmPassword: null
-  # Store server error
-  error: null
-  actions:
     signUp: ->
-      username = @get("username")
-      password = @get("password")
-      confirmPassword = @get("confirmPassword")
+      username = @get("newUsername")
+      password = @get("newPassword")
+      confirmPassword = @get("newConfirmPassword")
       clientId = TreggEditor.clientId
       signUpUrl = TreggEditor.baseApiUrl + "/sign-up"
       data =
