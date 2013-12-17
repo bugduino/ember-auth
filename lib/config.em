@@ -120,7 +120,7 @@ Em.Auth.SignInController = Em.Controller.extend
       # Manually save the token
           localStorage.setItem "access_token", accessToken
       # Redirect user to home
-          @transitionToRoute "sign_in"
+          @transitionToRoute "market"
       ).fail (jqxhr, textStatus, error) =>
         errs = JSON.parse(jqxhr.responseText)
         #TODO: promt error to

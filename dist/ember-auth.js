@@ -468,7 +468,7 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
         if (accessToken) {
           get$(this$, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
           localStorage.setItem('access_token', accessToken);
-          return this$.transitionToRoute('sign_in');
+          return this$.transitionToRoute('market');
         }
       })).fail((this$1 = this, function (jqxhr, textStatus, error) {
         var errs;
