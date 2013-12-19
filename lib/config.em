@@ -80,6 +80,7 @@ Em.Auth.SignInController = Em.Controller.extend
           password: password
           grant_type: "password"
       ).then( (response) =>
+        console.log "success signIn"
         @set "error", null
         @set "username", ""
         @set "password", ""
@@ -93,7 +94,7 @@ Em.Auth.SignInController = Em.Controller.extend
         console.log "fail signIn"
         @set "error", error.error_description
       )
-      
+
     signUp: ->
       username = @get("newUsername")
       password = @get("newPassword")

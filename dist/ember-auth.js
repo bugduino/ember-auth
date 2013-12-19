@@ -429,6 +429,7 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
         }
       }).then((this$ = this, function (response) {
         var accessToken;
+        console.log('success signIn');
         this$.set('error', null);
         this$.set('username', '');
         this$.set('password', '');
