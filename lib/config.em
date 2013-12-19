@@ -68,7 +68,7 @@ Em.Auth.SignInController = Em.Controller.extend
   username: null
   password: null
   # Store error from server
-  #error: null
+  error: null
   actions:
     signIn: ->
       username = @get("username")

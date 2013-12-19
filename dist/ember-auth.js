@@ -418,6 +418,7 @@ set$(get$(Em, 'Auth'), 'UnauthenticatedRoute', get$(Em, 'Route').extend({
 set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
   username: null,
   password: null,
+  error: null,
   actions: {
     signIn: function () {
       var clientId, password, this$, this$1, username;
