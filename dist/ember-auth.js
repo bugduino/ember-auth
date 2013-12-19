@@ -425,6 +425,7 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
       username = this.get('username');
       password = this.get('password');
       clientId = get$(TreggEditor, 'clientId');
+      debugger;
       return get$(this, 'auth').signIn({
         data: {
           client_id: clientId,
