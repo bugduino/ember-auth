@@ -421,32 +421,32 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
   error: null,
   actions: {
     signIn: function () {
-      var clientId, password, this$, username;
+      var clientId, password, this$, this$1, username;
       username = this.get('username');
       password = this.get('password');
       clientId = get$(TreggEditor, 'clientId');
       debugger;
-      return get$(this, 'auth').signIn({
+      get$(this, 'auth').signIn({
         data: {
           client_id: clientId,
           username: username,
           password: password,
           grant_type: 'password'
         }
-      }).then(function (response) {
-        var accessToken;
-        this.set('error', null);
-        debugger;
-        this.set('username', '');
-        this.set('password', '');
-        accessToken = get$(this, 'auth').get('authToken');
-        if (accessToken) {
-          get$(this, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
-          return localStorage.setItem('access_token', get$(response, 'accessToken'));
-        }
       }).fail((this$ = this, function (response) {
         console.log('fail signIn');
         return this$.set('error', get$(response, 'error_description'));
+      }));
+      return get$(this, 'auth').addHandler('signInSuccess', (this$1 = this, function () {
+        var accessToken;
+        this$1.set('error', null);
+        this$1.set('username', '');
+        this$1.set('password', '');
+        accessToken = get$(this$1, 'auth').get('authToken');
+        if (accessToken) {
+          get$(this$1, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
+          return localStorage.setItem('access_token', accessToken);
+        }
       }));
     },
     signUp: function () {
