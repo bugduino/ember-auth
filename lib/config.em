@@ -89,10 +89,11 @@ Em.Auth.SignInController = Em.Controller.extend
           @auth.createSession JSON.stringify(access_token: accessToken)
           # Manually save the token
           localStorage.setItem "access_token", accessToken
+      (error) =>
+        console.log "fail signIn"
+        @set "error", error.error_description
       )
-      # subscribe to the `signInSuccess` event and
-      # then create session manually
-
+      
     signUp: ->
       username = @get("newUsername")
       password = @get("newPassword")
