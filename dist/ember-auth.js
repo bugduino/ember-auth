@@ -425,7 +425,6 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
       username = this.get('username');
       password = this.get('password');
       clientId = get$(TreggEditor, 'clientId');
-      debugger;
       get$(this, 'auth').signIn({
         data: {
           client_id: clientId,
@@ -439,6 +438,7 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
       }));
       return get$(this, 'auth').addHandler('signInSuccess', (this$1 = this, function () {
         var accessToken;
+        console.log('success signIn');
         this$1.set('error', null);
         this$1.set('username', '');
         this$1.set('password', '');
