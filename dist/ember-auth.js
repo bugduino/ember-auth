@@ -446,6 +446,7 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
       return get$(this, 'auth').addHandler('signInError', (this$1 = this, function () {
         var response;
         response = get$(this$1, 'auth').get('response');
+        debugger;
         return this$1.set('error', get$(response, 'error_description'));
       }));
     },
@@ -473,6 +474,7 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
       })).fail((this$1 = this, function (jqxhr, textStatus, error) {
         var errs;
         errs = JSON.parse(get$(jqxhr, 'responseText'));
+        debugger;
         return this$1.set('error', get$(errs, 'error'));
       }));
     }

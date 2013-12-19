@@ -95,8 +95,8 @@ Em.Auth.SignInController = Em.Controller.extend
           localStorage.setItem "access_token", accessToken
 
       @auth.addHandler "signInError", =>
-        #TODO: promt error to user
         response = @auth.get("response")
+        debugger
         @set "error", response.error_description
 
     signUp: ->
@@ -123,5 +123,5 @@ Em.Auth.SignInController = Em.Controller.extend
           @transitionToRoute "market"
       ).fail (jqxhr, textStatus, error) =>
         errs = JSON.parse(jqxhr.responseText)
-        #TODO: promt error to
+        debugger
         @set "error", errs.error
