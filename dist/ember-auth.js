@@ -434,12 +434,13 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
         }
       }).then((this$ = this, function (response) {
         var accessToken;
+        console.log(response);
         this$.set('username', '');
         this$.set('password', '');
         accessToken = get$(this$, 'auth').get('authToken');
         if (accessToken) {
           get$(this$, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
-          return localStorage.setItem('access_token', accessToken);
+          return localStorage.setItem('access_token', get$(resposne, 'accessToken'));
         }
       })).fail((this$1 = this, function (response) {
         debugger;

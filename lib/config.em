@@ -83,6 +83,7 @@ Em.Auth.SignInController = Em.Controller.extend
           password: password
           grant_type: "password"
       ).then( (response) =>
+        console.log response
         @set "username", ""
         @set "password", ""
         accessToken = @auth.get("authToken")
@@ -90,7 +91,7 @@ Em.Auth.SignInController = Em.Controller.extend
           # Manually create the session
           @auth.createSession JSON.stringify(access_token: accessToken)
           # Manually save the token
-          localStorage.setItem "access_token", accessToken
+          localStorage.setItem "access_token", resposne.accessToken
       ).fail( (response) =>
         debugger
         @set "error", response.error_description
