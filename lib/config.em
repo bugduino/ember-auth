@@ -68,7 +68,7 @@ Em.Auth.SignInController = Em.Controller.extend
   username: null
   password: null
   # Store error from server
-  error: null
+  #error: null
   actions:
     signIn: ->
       username = @get("username")
@@ -82,7 +82,7 @@ Em.Auth.SignInController = Em.Controller.extend
           username: username
           password: password
           grant_type: "password"
-      ).then( (response) ->
+      ).then( (response) =>
         @set "username", ""
         @set "password", ""
         accessToken = @auth.get("authToken")
@@ -91,7 +91,7 @@ Em.Auth.SignInController = Em.Controller.extend
           @auth.createSession JSON.stringify(access_token: accessToken)
           # Manually save the token
           localStorage.setItem "access_token", accessToken
-      ).fail( (response) ->
+      ).fail( (response) =>
         debugger
         @set "error", response.error_description
       )

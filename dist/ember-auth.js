@@ -418,10 +418,9 @@ set$(get$(Em, 'Auth'), 'UnauthenticatedRoute', get$(Em, 'Route').extend({
 set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
   username: null,
   password: null,
-  error: null,
   actions: {
     signIn: function () {
-      var clientId, password, username;
+      var clientId, password, this$, this$1, username;
       username = this.get('username');
       password = this.get('password');
       clientId = get$(TreggEditor, 'clientId');
@@ -432,19 +431,19 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
           password: password,
           grant_type: 'password'
         }
-      }).then(function (response) {
+      }).then((this$ = this, function (response) {
         var accessToken;
-        this.set('username', '');
-        this.set('password', '');
-        accessToken = get$(this, 'auth').get('authToken');
+        this$.set('username', '');
+        this$.set('password', '');
+        accessToken = get$(this$, 'auth').get('authToken');
         if (accessToken) {
-          get$(this, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
+          get$(this$, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
           return localStorage.setItem('access_token', accessToken);
         }
-      }).fail(function (response) {
+      })).fail((this$1 = this, function (response) {
         debugger;
-        return this.set('error', get$(response, 'error_description'));
-      });
+        return this$1.set('error', get$(response, 'error_description'));
+      }));
     },
     signUp: function () {
       var clientId, confirmPassword, data, password, signUpUrl, this$, this$1, username;
