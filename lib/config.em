@@ -75,16 +75,14 @@ Em.Auth.SignInController = Em.Controller.extend
       password = @get("password")
       clientId = TreggEditor.clientId
       # Use Ember-Auth for the login
-      @auth.signIn 
+      @auth.signIn(
         data:
           #TODO: add a valid app id
           client_id: clientId
           username: username
           password: password
           grant_type: "password"
-      # subscribe to the `signInSuccess` event and
-      # then create session manually
-      @auth.addHandler "signInSuccess", =>
+      ).then( (response) ->
         @set "username", ""
         @set "password", ""
         accessToken = @auth.get("authToken")
@@ -93,11 +91,26 @@ Em.Auth.SignInController = Em.Controller.extend
           @auth.createSession JSON.stringify(access_token: accessToken)
           # Manually save the token
           localStorage.setItem "access_token", accessToken
-
-      @auth.addHandler "signInError", =>
-        response = @auth.response
+      ).fail( (response) ->
         debugger
         @set "error", response.error_description
+      )
+      # subscribe to the `signInSuccess` event and
+      # then create session manually
+      #@auth.addHandler "signInSuccess", =>
+      #  @set "username", ""
+      #  @set "password", ""
+      #  accessToken = @auth.get("authToken")
+      #  if accessToken
+          # Manually create the session
+      #    @auth.createSession JSON.stringify(access_token: accessToken)
+          # Manually save the token
+      #    localStorage.setItem "access_token", accessToken
+
+      #@auth.addHandler "signInError", =>
+      #  response = @auth.response
+      #  debugger
+      #  @set "error", response.error_description
 
     signUp: ->
       username = @get("newUsername")
