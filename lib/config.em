@@ -82,8 +82,9 @@ Em.Auth.SignInController = Em.Controller.extend
           username: username
           password: password
           grant_type: "password"
-      ).then( (response) =>
-        console.log response
+      ).then( (response) ->
+        console.log "successfull signIn"
+        debugger
         @set "username", ""
         @set "password", ""
         accessToken = @auth.get("authToken")
@@ -93,7 +94,7 @@ Em.Auth.SignInController = Em.Controller.extend
           # Manually save the token
           localStorage.setItem "access_token", response.accessToken
       ).fail( (response) =>
-        debugger
+        console.log "fail signIn"
         @set "error", response.error_description
       )
       # subscribe to the `signInSuccess` event and
@@ -137,5 +138,4 @@ Em.Auth.SignInController = Em.Controller.extend
           @transitionToRoute "market"
       ).fail (jqxhr, textStatus, error) =>
         errs = JSON.parse(jqxhr.responseText)
-        debugger
         @set "error", errs.error

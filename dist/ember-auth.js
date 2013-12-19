@@ -421,7 +421,7 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
   error: null,
   actions: {
     signIn: function () {
-      var clientId, password, this$, this$1, username;
+      var clientId, password, this$, username;
       username = this.get('username');
       password = this.get('password');
       clientId = get$(TreggEditor, 'clientId');
@@ -432,19 +432,20 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
           password: password,
           grant_type: 'password'
         }
-      }).then((this$ = this, function (response) {
+      }).then(function (response) {
         var accessToken;
-        console.log(response);
-        this$.set('username', '');
-        this$.set('password', '');
-        accessToken = get$(this$, 'auth').get('authToken');
+        console.log('successfull signIn');
+        debugger;
+        this.set('username', '');
+        this.set('password', '');
+        accessToken = get$(this, 'auth').get('authToken');
         if (accessToken) {
-          get$(this$, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
+          get$(this, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
           return localStorage.setItem('access_token', get$(response, 'accessToken'));
         }
-      })).fail((this$1 = this, function (response) {
-        debugger;
-        return this$1.set('error', get$(response, 'error_description'));
+      }).fail((this$ = this, function (response) {
+        console.log('fail signIn');
+        return this$.set('error', get$(response, 'error_description'));
       }));
     },
     signUp: function () {
@@ -471,7 +472,6 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
       })).fail((this$1 = this, function (jqxhr, textStatus, error) {
         var errs;
         errs = JSON.parse(get$(jqxhr, 'responseText'));
-        debugger;
         return this$1.set('error', get$(errs, 'error'));
       }));
     }
