@@ -445,7 +445,7 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
       }));
       return get$(this, 'auth').addHandler('signInError', (this$1 = this, function () {
         var response;
-        response = get$(this$1, 'auth').get('response');
+        response = get$(get$(this$1, 'auth'), 'response');
         debugger;
         return this$1.set('error', get$(response, 'error_description'));
       }));

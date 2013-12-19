@@ -95,7 +95,7 @@ Em.Auth.SignInController = Em.Controller.extend
           localStorage.setItem "access_token", accessToken
 
       @auth.addHandler "signInError", =>
-        response = @auth.get("response")
+        response = @auth.response
         debugger
         @set "error", response.error_description
 
