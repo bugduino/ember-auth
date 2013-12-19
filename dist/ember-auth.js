@@ -409,12 +409,7 @@ set$(get$(Em, 'Auth'), 'AuthenticatedRoute', get$(Em, 'Route').extend({
     }
   }
 }));
-set$(get$(Em, 'Auth'), 'UnauthenticatedRoute', get$(Em, 'Route').extend({
-  beforeModel: function () {
-    if (get$(this, 'auth').get('signedIn'))
-      return this.transitionTo('market/items');
-  }
-}));
+set$(get$(Em, 'Auth'), 'UnauthenticatedRoute', get$(Em, 'Route').extend());
 set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
   username: null,
   password: null,

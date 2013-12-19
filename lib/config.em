@@ -58,10 +58,7 @@ Em.Auth.AuthenticatedRoute = Em.Route.extend
       @transitionTo('landing')
       false
       
-Em.Auth.UnauthenticatedRoute = Em.Route.extend
-  beforeModel: ->
-    if @auth.get "signedIn"
-      @transitionTo "market/items"
+Em.Auth.UnauthenticatedRoute = Em.Route.extend()
 
 Em.Auth.SignInController = Em.Controller.extend
   # Used for form field binding
