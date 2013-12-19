@@ -434,7 +434,7 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
         }
       }).then(function (response) {
         var accessToken;
-        console.log('successfull signIn');
+        this.set('error', null);
         debugger;
         this.set('username', '');
         this.set('password', '');
@@ -463,6 +463,7 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
       };
       return Ember.$.post(signUpUrl, data, (this$ = this, function (response) {
         var accessToken;
+        this$.set('error', null);
         accessToken = get$(response, 'access_token');
         if (accessToken) {
           get$(this$, 'auth').createSession(JSON.stringify({ access_token: accessToken }));

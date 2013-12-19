@@ -83,7 +83,7 @@ Em.Auth.SignInController = Em.Controller.extend
           password: password
           grant_type: "password"
       ).then( (response) ->
-        console.log "successfull signIn"
+        @set "error", null
         debugger
         @set "username", ""
         @set "password", ""
@@ -98,7 +98,8 @@ Em.Auth.SignInController = Em.Controller.extend
         @set "error", response.error_description
       )
       # subscribe to the `signInSuccess` event and
-      # then create session manually
+      # then create session manually+
+
       #@auth.addHandler "signInSuccess", =>
       #  @set "username", ""
       #  @set "password", ""
@@ -127,6 +128,7 @@ Em.Auth.SignInController = Em.Controller.extend
         client_id: clientId
       # make the request
       Ember.$.post(signUpUrl, data, (response) =>
+        @set "error", null
       # Get access_token from server response
         accessToken = response.access_token
         if accessToken
