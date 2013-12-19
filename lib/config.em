@@ -91,7 +91,7 @@ Em.Auth.SignInController = Em.Controller.extend
           # Manually create the session
           @auth.createSession JSON.stringify(access_token: accessToken)
           # Manually save the token
-          localStorage.setItem "access_token", resposne.accessToken
+          localStorage.setItem "access_token", response.accessToken
       ).fail( (response) =>
         debugger
         @set "error", response.error_description
