@@ -416,10 +416,16 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
   error: null,
   actions: {
     signIn: function () {
-      var clientId, password, username;
+      var clientId, data, password, username;
       username = this.get('username');
       password = this.get('password');
       clientId = get$(TreggEditor, 'clientId');
+      data = {
+        client_id: clientId,
+        username: username,
+        password: password,
+        grant_type: 'password'
+      };
       get$(this, 'auth').signIn(data);
       get$(this, 'auth').addHandler('signInSuccess', successHandler);
       return get$(this, 'auth').addHandler('signInError', errorHandler);

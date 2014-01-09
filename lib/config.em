@@ -72,12 +72,13 @@ Em.Auth.SignInController = Em.Controller.extend
       username = @get("username")
       password = @get("password")
       clientId = TreggEditor.clientId
-      data:
+      data = {
         #TODO: add a valid app id
         client_id: clientId
         username: username
         password: password
         grant_type: "password"
+      }
       # Use Ember-Auth for the login
       @auth.signIn(data)
  
