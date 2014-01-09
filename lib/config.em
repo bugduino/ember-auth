@@ -92,6 +92,7 @@ Em.Auth.SignInController = Em.Controller.extend
             # Manually save the token
             localStorage.setItem "access_token", accessToken
         (error) =>
+          console.log error
           console.log "fail signIn"
           @set "error", error.error_description
       )
