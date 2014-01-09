@@ -420,14 +420,14 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
       username = this.get('username');
       password = this.get('password');
       clientId = get$(TreggEditor, 'clientId');
-      console.log('signedIn'({
+      get$(this, 'auth').signIn({
         data: {
           client_id: clientId,
           username: username,
           password: password,
           grant_type: 'password'
         }
-      }));
+      });
       get$(this, 'auth').addHandler('signInSuccess', (this$ = this, function (response) {
         var accessToken;
         console.log(response);
