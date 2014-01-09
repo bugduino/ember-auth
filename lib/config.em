@@ -36,23 +36,6 @@ Em.Auth.reopen
     signOutRoute: "landing"
 
 Em.Auth.ApplicationRoute = Em.Route.extend
-  beforeModel: ->
-    @auth.addHandler 'signInSuccess', (response) =>
-      console.log "success signIn"
-      @set "error", null
-      @set "username", ""
-      @set "password", ""
-      accessToken = @auth.get("authToken")
-      if accessToken
-        # Manually create the session
-        @auth.createSession JSON.stringify(access_token: accessToken)
-        # Manually save the token
-        localStorage.setItem "access_token", accessToken
-
-    @auth.addHandler 'signInError', (error) =>
-      console.log "fail signIn"
-      @set "error", error.error_description
-
   renderTemplate: ->
     @render('application')
   init: ->
@@ -90,12 +73,30 @@ Em.Auth.SignInController = Em.Controller.extend
       clientId = TreggEditor.clientId
       # Use Ember-Auth for the login
       @auth.signIn
+      console.log "signedIn"
         data:
           #TODO: add a valid app id
           client_id: clientId
           username: username
           password: password
           grant_type: "password"
+
+      @auth.addHandler 'signInSuccess', (response) =>
+          console.log response
+          console.log "success signIn"
+          @set "error", null
+          @set "username", ""
+          @set "password", ""
+          accessToken = @auth.get("authToken")
+          if accessToken
+            # Manually create the session
+            @auth.createSession JSON.stringify(access_token: accessToken)
+            # Manually save the token
+            localStorage.setItem "access_token", accessToken
+
+      @auth.addHandler 'signInError', (error) =>
+          console.log "fail signIn"
+          @set "error", error.error_description
 
     signUp: ->
       username = @get("newUsername")
