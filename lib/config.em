@@ -67,21 +67,22 @@ Em.Auth.SignInController = Em.Controller.extend
   # Store error from server
   error: null
   actions:
-    successHandler: =>
-        console.log "success signIn"
-        @set "error", null
-        @set "username", ""
-        @set "password", ""
-        accessToken = @auth.get("authToken")
-        if accessToken
-          # Manually create the session
-          @auth.createSession JSON.stringify(access_token: accessToken)
-          # Manually save the token
-          localStorage.setItem "access_token", accessToken
+    successHandler: ->
+      debugger
+      console.log "success signIn"
+      @set "error", null
+      @set "username", ""
+      @set "password", ""
+      accessToken = @auth.get("authToken")
+      if accessToken
+        # Manually create the session
+        @auth.createSession JSON.stringify(access_token: accessToken)
+        # Manually save the token
+        localStorage.setItem "access_token", accessToken
 
-    errorHandler: (error) =>
-        console.log "fail signIn"
-        @set "error", error.error_description
+    errorHandler: (error) ->
+      console.log "fail signIn"
+      @set "error", error.error_description
 
     signIn: ->
       username = @get("username")
