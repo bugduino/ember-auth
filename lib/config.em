@@ -66,6 +66,24 @@ Em.Auth.SignInController = Em.Controller.extend
   password: null
   # Store error from server
   error: null
+  
+  success: (response) =>
+      console.log response
+      console.log "success signIn"
+      @set "error", null
+      @set "username", ""
+      @set "password", ""
+      accessToken = @auth.get("authToken")
+      if accessToken
+        # Manually create the session
+        @auth.createSession JSON.stringify(access_token: accessToken)
+        # Manually save the token
+        localStorage.setItem "access_token", accessToken
+
+  error: (error) =>
+      console.log "fail signIn"
+      @set "error", error.error_description
+  
   actions:
     signIn: ->
       username = @get("username")
@@ -79,23 +97,9 @@ Em.Auth.SignInController = Em.Controller.extend
           username: username
           password: password
           grant_type: "password"
-
-      @auth.addHandler 'signInSuccess', (response) =>
-          console.log response
-          console.log "success signIn"
-          @set "error", null
-          @set "username", ""
-          @set "password", ""
-          accessToken = @auth.get("authToken")
-          if accessToken
-            # Manually create the session
-            @auth.createSession JSON.stringify(access_token: accessToken)
-            # Manually save the token
-            localStorage.setItem "access_token", accessToken
-
-      @auth.addHandler 'signInError', (error) =>
-          console.log "fail signIn"
-          @set "error", error.error_description
+      
+      @auth.addHandler 'signInSuccess', success()
+      @auth.addHandler 'signInError', error()
 
     signUp: ->
       username = @get("newUsername")

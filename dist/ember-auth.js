@@ -414,9 +414,26 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
   username: null,
   password: null,
   error: null,
+  success: (this$ = this, function (response) {
+    var accessToken;
+    console.log(response);
+    console.log('success signIn');
+    this$.set('error', null);
+    this$.set('username', '');
+    this$.set('password', '');
+    accessToken = get$(this$, 'auth').get('authToken');
+    if (accessToken) {
+      get$(this$, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
+      return localStorage.setItem('access_token', accessToken);
+    }
+  }),
+  error: (this$1 = this, function (error) {
+    console.log('fail signIn');
+    return this$1.set('error', get$(error, 'error_description'));
+  }),
   actions: {
     signIn: function () {
-      var clientId, password, this$, this$1, username;
+      var clientId, password, username;
       username = this.get('username');
       password = this.get('password');
       clientId = get$(TreggEditor, 'clientId');
@@ -428,26 +445,11 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
           grant_type: 'password'
         }
       });
-      get$(this, 'auth').addHandler('signInSuccess', (this$ = this, function (response) {
-        var accessToken;
-        console.log(response);
-        console.log('success signIn');
-        this$.set('error', null);
-        this$.set('username', '');
-        this$.set('password', '');
-        accessToken = get$(this$, 'auth').get('authToken');
-        if (accessToken) {
-          get$(this$, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
-          return localStorage.setItem('access_token', accessToken);
-        }
-      }));
-      return get$(this, 'auth').addHandler('signInError', (this$1 = this, function (error) {
-        console.log('fail signIn');
-        return this$1.set('error', get$(error, 'error_description'));
-      }));
+      get$(this, 'auth').addHandler('signInSuccess', success());
+      return get$(this, 'auth').addHandler('signInError', error());
     },
     signUp: function () {
-      var clientId, confirmPassword, data, password, signUpUrl, this$, this$1, username;
+      var clientId, confirmPassword, data, password, signUpUrl, this$2, this$3, username;
       username = this.get('newUsername');
       password = this.get('newPassword');
       confirmPassword = this.get('newConfirmPassword');
@@ -459,19 +461,19 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
         confirm_password: confirmPassword,
         client_id: clientId
       };
-      return Ember.$.post(signUpUrl, data, (this$ = this, function (response) {
+      return Ember.$.post(signUpUrl, data, (this$2 = this, function (response) {
         var accessToken;
-        this$.set('error', null);
+        this$2.set('error', null);
         accessToken = get$(response, 'access_token');
         if (accessToken) {
-          get$(this$, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
+          get$(this$2, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
           localStorage.setItem('access_token', accessToken);
-          return this$.transitionToRoute('market');
+          return this$2.transitionToRoute('market');
         }
-      })).fail((this$1 = this, function (jqxhr, textStatus, error) {
+      })).fail((this$3 = this, function (jqxhr, textStatus, error) {
         var errs;
         errs = JSON.parse(get$(jqxhr, 'responseText'));
-        return this$1.set('error', get$(errs, 'error'));
+        return this$3.set('error', get$(errs, 'error'));
       }));
     }
   }
