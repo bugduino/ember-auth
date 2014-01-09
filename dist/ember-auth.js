@@ -416,7 +416,7 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
   error: null,
   actions: {
     signIn: function () {
-      var clientId, password, this$, this$1, username;
+      var clientId, password, this$, username;
       username = this.get('username');
       password = this.get('password');
       clientId = get$(TreggEditor, 'clientId');
@@ -438,10 +438,6 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
           get$(this$, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
           return localStorage.setItem('access_token', accessToken);
         }
-      })).fail((this$1 = this, function (error) {
-        console.log(error);
-        console.log('fail signIn');
-        return this$1.set('error', get$(error, 'error_description'));
       }));
     },
     signUp: function () {
