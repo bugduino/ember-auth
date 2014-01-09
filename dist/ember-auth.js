@@ -430,22 +430,18 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
       });
       get$(this, 'auth').addHandler('signInSuccess', (this$ = this, function (response) {
         var accessToken;
-        console.log('success signIn');
         this$.set('error', null);
         this$.set('username', '');
         this$.set('password', '');
         accessToken = get$(this$, 'auth').get('authToken');
-        if (accessToken) {
-          get$(this$, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
+        console.log('success signIn');
+        if (accessToken)
           return localStorage.setItem('access_token', accessToken);
-        }
       }));
-      get$(this, 'auth').addHandler('signInError', (this$1 = this, function (error) {
+      return get$(this, 'auth').addHandler('signInError', (this$1 = this, function (error) {
         console.log('fail signIn');
         return this$1.set('error', get$(error, 'error_description'));
       }));
-      get$(this, 'auth').removeHandler('signInSuccess');
-      return get$(this, 'auth').removeHandler('signInError');
     },
     signUp: function () {
       var clientId, confirmPassword, data, password, signUpUrl, this$, this$1, username;

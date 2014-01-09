@@ -66,13 +66,19 @@ Em.Auth.SignInController = Em.Controller.extend
   password: null
   # Store error from server
   error: null
-  actions:
+  actions:    
     signIn: ->
       username = @get("username")
       password = @get("password")
       clientId = TreggEditor.clientId
+      data:
+        #TODO: add a valid app id
+        client_id: clientId
+        username: username
+        password: password
+        grant_type: "password"
       # Use Ember-Auth for the login
-      @auth.signIn(
+      @auth.signIn(      
         data:
           #TODO: add a valid app id
           client_id: clientId
@@ -80,25 +86,18 @@ Em.Auth.SignInController = Em.Controller.extend
           password: password
           grant_type: "password"
       )
-
       @auth.addHandler 'signInSuccess', (response) =>
-          console.log "success signIn"
-          @set "error", null
-          @set "username", ""
-          @set "password", ""
-          accessToken = @auth.get("authToken")
-          if accessToken
-            # Manually create the session
-            @auth.createSession JSON.stringify(access_token: accessToken)
-            # Manually save the token
-            localStorage.setItem "access_token", accessToken
-
+        @set "error", null
+        @set "username", ""
+        @set "password", ""
+        accessToken = @auth.get('authToken')
+        console.log "success signIn"
+        if accessToken
+          localStorage.setItem "access_token", accessToken
+  
       @auth.addHandler 'signInError', (error) =>
-          console.log "fail signIn"
-          @set "error", error.error_description
-
-      @auth.removeHandler 'signInSuccess' 
-      @auth.removeHandler 'signInError'
+        console.log "fail signIn"
+        @set "error", error.error_description
 
     signUp: ->
       username = @get("newUsername")
