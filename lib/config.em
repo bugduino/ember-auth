@@ -98,8 +98,8 @@ Em.Auth.SignInController = Em.Controller.extend
           password: password
           grant_type: "password"
       
-      @auth.addHandler 'signInSuccess', @send('successHandler')
-      @auth.addHandler 'signInError', @send('errorHandler')
+      @auth.addHandler 'signInSuccess', @send('successHandler', response)
+      @auth.addHandler 'signInError', @send('errorHandler', error)
 
     signUp: ->
       username = @get("newUsername")

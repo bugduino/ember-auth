@@ -445,8 +445,8 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
           grant_type: 'password'
         }
       });
-      get$(this, 'auth').addHandler('signInSuccess', this.send('successHandler'));
-      return get$(this, 'auth').addHandler('signInError', this.send('errorHandler'));
+      get$(this, 'auth').addHandler('signInSuccess', this.send('successHandler', response));
+      return get$(this, 'auth').addHandler('signInError', this.send('errorHandler', error));
     },
     signUp: function () {
       var clientId, confirmPassword, data, password, signUpUrl, this$2, this$3, username;
