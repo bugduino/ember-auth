@@ -67,7 +67,22 @@ Em.Auth.SignInController = Em.Controller.extend
   # Store error from server
   error: null
   actions:
+    successHandler: (response) ->
+      console.log "success signIn"
+      @set "error", null
+      @set "username", ""
+      @set "password", ""
+      accessToken = @auth.get("authToken")
+      if accessToken
+        # Manually create the session
+        @auth.createSession JSON.stringify(access_token: accessToken)
+        # Manually save the token
+        localStorage.setItem "access_token", accessToken
 
+    errorHandler: (error) ->
+      console.log "fail signIn"
+      @set "error", error.error_description
+   
     signIn: ->
       username = @get("username")
       password = @get("password")
@@ -81,24 +96,6 @@ Em.Auth.SignInController = Em.Controller.extend
       }
       # Use Ember-Auth for the login
       @auth.signIn(data)
- 
-      successHandler: (response) ->
-        debugger
-        console.log "success signIn"
-        @set "error", null
-        @set "username", ""
-        @set "password", ""
-        accessToken = @auth.get("authToken")
-        if accessToken
-          # Manually create the session
-          @auth.createSession JSON.stringify(access_token: accessToken)
-          # Manually save the token
-          localStorage.setItem "access_token", accessToken
-
-      errorHandler: (error) ->
-        console.log "fail signIn"
-        @set "error", error.error_description
-
       @auth.addHandler 'signInSuccess', @send('successHandler')
       @auth.addHandler 'signInError', @send('errorHandler')
 

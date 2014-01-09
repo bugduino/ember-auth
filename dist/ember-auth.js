@@ -415,6 +415,22 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
   password: null,
   error: null,
   actions: {
+    successHandler: function (response) {
+      var accessToken;
+      console.log('success signIn');
+      this.set('error', null);
+      this.set('username', '');
+      this.set('password', '');
+      accessToken = get$(this, 'auth').get('authToken');
+      if (accessToken) {
+        get$(this, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
+        return localStorage.setItem('access_token', accessToken);
+      }
+    },
+    errorHandler: function (error) {
+      console.log('fail signIn');
+      return this.set('error', get$(error, 'error_description'));
+    },
     signIn: function () {
       var clientId, data, password, username;
       username = this.get('username');
