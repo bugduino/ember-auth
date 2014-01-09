@@ -67,36 +67,37 @@ Em.Auth.SignInController = Em.Controller.extend
   # Store error from server
   error: null
   actions:
-    successHandler: (response) ->
-      debugger
-      console.log "success signIn"
-      @set "error", null
-      @set "username", ""
-      @set "password", ""
-      accessToken = @auth.get("authToken")
-      if accessToken
-        # Manually create the session
-        @auth.createSession JSON.stringify(access_token: accessToken)
-        # Manually save the token
-        localStorage.setItem "access_token", accessToken
-
-    errorHandler: (error) ->
-      console.log "fail signIn"
-      @set "error", error.error_description
 
     signIn: ->
       username = @get("username")
       password = @get("password")
       clientId = TreggEditor.clientId
+      data:
+        #TODO: add a valid app id
+        client_id: clientId
+        username: username
+        password: password
+        grant_type: "password"
       # Use Ember-Auth for the login
-      @auth.signIn
-        data:
-          #TODO: add a valid app id
-          client_id: clientId
-          username: username
-          password: password
-          grant_type: "password"
-      
+      @auth.signIn(data)
+ 
+      successHandler: (response) ->
+        debugger
+        console.log "success signIn"
+        @set "error", null
+        @set "username", ""
+        @set "password", ""
+        accessToken = @auth.get("authToken")
+        if accessToken
+          # Manually create the session
+          @auth.createSession JSON.stringify(access_token: accessToken)
+          # Manually save the token
+          localStorage.setItem "access_token", accessToken
+
+      errorHandler: (error) ->
+        console.log "fail signIn"
+        @set "error", error.error_description
+
       @auth.addHandler 'signInSuccess', successHandler
       @auth.addHandler 'signInError', errorHandler
 
