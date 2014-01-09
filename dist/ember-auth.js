@@ -414,7 +414,7 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
   username: null,
   password: null,
   error: null,
-  success: (this$ = this, function (response) {
+  successHandler: (this$ = this, function (response) {
     var accessToken;
     console.log(response);
     console.log('success signIn');
@@ -427,7 +427,7 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
       return localStorage.setItem('access_token', accessToken);
     }
   }),
-  error: (this$1 = this, function (error) {
+  errorHandler: (this$1 = this, function (error) {
     console.log('fail signIn');
     return this$1.set('error', get$(error, 'error_description'));
   }),
@@ -445,8 +445,8 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
           grant_type: 'password'
         }
       });
-      get$(this, 'auth').addHandler('signInSuccess', success());
-      return get$(this, 'auth').addHandler('signInError', error());
+      get$(this, 'auth').addHandler('signInSuccess', this.send('successHandler'));
+      return get$(this, 'auth').addHandler('signInError', this.send('errorHandler'));
     },
     signUp: function () {
       var clientId, confirmPassword, data, password, signUpUrl, this$2, this$3, username;
