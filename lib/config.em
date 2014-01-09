@@ -99,8 +99,8 @@ Em.Auth.SignInController = Em.Controller.extend
         console.log "fail signIn"
         @set "error", error.error_description
 
-      @auth.addHandler 'signInSuccess', successHandler
-      @auth.addHandler 'signInError', errorHandler
+      @auth.addHandler 'signInSuccess', @send('successHandler')
+      @auth.addHandler 'signInError', @send('errorHandler')
 
     signUp: ->
       username = @get("newUsername")
