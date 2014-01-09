@@ -67,7 +67,7 @@ Em.Auth.SignInController = Em.Controller.extend
   # Store error from server
   error: null
   actions:
-    successHandler: ->
+    successHandler: (response) ->
       debugger
       console.log "success signIn"
       @set "error", null
@@ -97,8 +97,8 @@ Em.Auth.SignInController = Em.Controller.extend
           password: password
           grant_type: "password"
       
-      @auth.addHandler 'signInSuccess', @send('successHandler')
-      @auth.addHandler 'signInError', @send('errorHandler', error)
+      @auth.addHandler 'signInSuccess', successHandler
+      @auth.addHandler 'signInError', errorHandler
 
     signUp: ->
       username = @get("newUsername")

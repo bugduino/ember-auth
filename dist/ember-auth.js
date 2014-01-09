@@ -415,7 +415,7 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
   password: null,
   error: null,
   actions: {
-    successHandler: function () {
+    successHandler: function (response) {
       var accessToken;
       debugger;
       console.log('success signIn');
@@ -445,8 +445,8 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
           grant_type: 'password'
         }
       });
-      get$(this, 'auth').addHandler('signInSuccess', this.send('successHandler'));
-      return get$(this, 'auth').addHandler('signInError', this.send('errorHandler', error));
+      get$(this, 'auth').addHandler('signInSuccess', successHandler);
+      return get$(this, 'auth').addHandler('signInError', errorHandler);
     },
     signUp: function () {
       var clientId, confirmPassword, data, password, signUpUrl, this$, this$1, username;
