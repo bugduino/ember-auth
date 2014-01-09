@@ -90,12 +90,15 @@ Em.Auth.SignInController = Em.Controller.extend
             @auth.createSession JSON.stringify(access_token: accessToken)
             # Manually save the token
             localStorage.setItem "access_token", accessToken
-      ).fail( (error) =>
-          console.log error
-          console.log "fail signIn"
-          @set "error", error.error_description
       )
-      
+
+
+      #.fail( (error) =>
+      #    console.log error
+      #    console.log "fail signIn"
+      #    @set "error", error.error_description
+      #)
+
     signUp: ->
       username = @get("newUsername")
       password = @get("newPassword")
