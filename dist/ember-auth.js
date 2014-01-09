@@ -438,7 +438,7 @@ set$(get$(Em, 'Auth'), 'SignInController', get$(Em, 'Controller').extend({
           get$(this$, 'auth').createSession(JSON.stringify({ access_token: accessToken }));
           return localStorage.setItem('access_token', accessToken);
         }
-      }), (this$1 = this, function (error) {
+      })).fail((this$1 = this, function (error) {
         console.log(error);
         console.log('fail signIn');
         return this$1.set('error', get$(error, 'error_description'));
