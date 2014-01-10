@@ -10,8 +10,6 @@ Em.Auth.reopen
 
   session:  'localStorage'
   
-  tokenLocation: "authHeader"
-  
   tokenHeaderKey: "OAuth"
   # [array<string>] (opt) list of modules, loaded in order specified;
   #   default: []
@@ -24,6 +22,9 @@ Em.Auth.reopen
   signOutEndPoint: '/sign-out'
 
   # [string|null] (opt) a different base url for all ember-auth requests
+  rememberable: 
+    tokenKey: "access_token"
+    autoRecall: true
 
   authRedirectable:
     route: "sign_in"
