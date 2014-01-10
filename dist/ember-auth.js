@@ -368,10 +368,6 @@ get$(Em, 'Auth').reopen({
   modules: [],
   signInEndPoint: '/oauth/authorize',
   signOutEndPoint: '/sign-out',
-  rememberable: {
-    tokenKey: 'access_token',
-    autoRecall: true
-  },
   authRedirectable: { route: 'sign_in' },
   actionRedirectable: {
     signInRoute: 'market',

@@ -24,9 +24,6 @@ Em.Auth.reopen
   signOutEndPoint: '/sign-out'
 
   # [string|null] (opt) a different base url for all ember-auth requests
-  rememberable: 
-    tokenKey: "access_token"
-    autoRecall: true
 
   authRedirectable:
     route: "sign_in"
