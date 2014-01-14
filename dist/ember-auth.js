@@ -394,7 +394,8 @@ set$(get$(Em, 'Auth'), 'ApplicationRoute', get$(Em, 'Route').extend({
       var accessToken;
       accessToken = localStorage.getItem('access_token');
       localStorage.removeItem('access_token');
-      return localStorage.removeItem('ember-auth-rememberable');
+      localStorage.removeItem('ember-auth-rememberable');
+      return get$(this, 'auth').destroySession(JSON.stringify({ access_token: accessToken }));
     }
   }
 }));

@@ -47,6 +47,7 @@ Em.Auth.ApplicationRoute = Em.Route.extend
       accessToken = localStorage.getItem("access_token")
       localStorage.removeItem "access_token"
       localStorage.removeItem "ember-auth-rememberable"
+      @auth.destroySession JSON.stringify(access_token: accessToken)
 
 Em.Auth.AuthenticatedRoute = Em.Route.extend
   authRedirectable: true
