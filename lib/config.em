@@ -45,7 +45,6 @@ Em.Auth.ApplicationRoute = Em.Route.extend
     signOut: ->
       #delete session
       accessToken = localStorage.getItem("access_token")
-      @auth.destroySession JSON.stringify(access_token: accessToken)
       localStorage.removeItem "access_token"
       localStorage.removeItem "ember-auth-rememberable"
 
